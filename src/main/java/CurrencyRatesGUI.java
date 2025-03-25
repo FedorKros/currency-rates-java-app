@@ -116,7 +116,7 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
                 c1.setSelectedItem(c2.getSelectedItem());
                 c2.setSelectedItem(temp);
                 updateRate();
-                if (!amount.getText().equals("")) updateAmount(amount.getText());
+                if (!amount.getText().isEmpty()) updateAmount(amount.getText());
     }
 
     //   Rounding to 2 decimal places
@@ -136,7 +136,7 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSubmit) {
-            if (!amount.getText().equals("")) updateAmount(amount.getText());
+            if (!amount.getText().isEmpty()) updateAmount(amount.getText());
             else lCalculated.setText("Enter an amount to convert ");
         } else if (e.getSource() == btnSwap) {
             swap(c1, c2);
