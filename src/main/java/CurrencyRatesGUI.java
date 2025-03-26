@@ -158,8 +158,6 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, K
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSubmit) {
-//            if (!amount.getText().isEmpty()) updateAmount(amount.getText());
-//            else lCalculated.setText("Enter an amount to convert ");
             submitAmount();
         } else if (e.getSource() == btnSwap) {
             swap(c1, c2);
