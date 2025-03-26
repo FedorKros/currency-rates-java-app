@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.net.http.*;
-        import java.net.URI;
+import java.net.URI;
 import org.json.JSONObject;
 
 public class CurrencyFetcher {
