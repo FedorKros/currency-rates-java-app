@@ -3,7 +3,7 @@ import java.awt.*;
 import java.io.IOException;
 import javax.swing.*;
 
-class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
+class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, KeyListener {
 
     static JFrame f;
     static JLabel l, lRes, lCalculated;
@@ -19,7 +19,6 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
         btnSubmit = new JButton("Submit");
         btnSwap = new JButton("Swap");
         btnClear = new JButton("Clear");
@@ -56,6 +55,7 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
 
 
         amount = new JTextField(10);
+        amount.addKeyListener(gui);
         c1 = new JComboBox<>(curPool);
         c2 = new JComboBox<>(curPool);
 
@@ -65,6 +65,7 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
         btnSubmit.addActionListener(gui);
         btnSwap.addActionListener(gui);
         btnClear.addActionListener(gui);
+
 
         // create labels
         l = new JLabel("Select currencies: ");
@@ -132,12 +133,34 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener {
         lCalculated.setText("Your amount converted: " + round(rate * enteredAmount));
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) submitAmount();
+    }
+
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+
     //    Buttons behaviour
+
+    public void submitAmount() {
+        if (!amount.getText().isEmpty()) updateAmount(amount.getText());
+        else lCalculated.setText("Enter an amount to convert ");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSubmit) {
-            if (!amount.getText().isEmpty()) updateAmount(amount.getText());
-            else lCalculated.setText("Enter an amount to convert ");
+//            if (!amount.getText().isEmpty()) updateAmount(amount.getText());
+//            else lCalculated.setText("Enter an amount to convert ");
+            submitAmount();
         } else if (e.getSource() == btnSwap) {
             swap(c1, c2);
         } else if (e.getSource() == btnClear) {
