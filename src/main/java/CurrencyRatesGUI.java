@@ -108,16 +108,20 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, K
     }
 
 
+    //    checks whether the entered amount is a valid input
+    public void submitAmount() {
+        if (!amount.getText().isEmpty() && amount.getText().matches("^[0-9]+(\\.[0-9]+)?$"))
+            updateAmount(amount.getText());
+        else lCalculated.setText("Enter an amount to convert ");
+    }
+
     //    Swapping currencies
     public void swap(JComboBox<String> c1, JComboBox<String> c2) {
-
-
-                Object temp = c1.getSelectedItem();
-
-                c1.setSelectedItem(c2.getSelectedItem());
-                c2.setSelectedItem(temp);
-                updateRate();
-                if (!amount.getText().isEmpty()) updateAmount(amount.getText());
+        Object temp = c1.getSelectedItem();
+        c1.setSelectedItem(c2.getSelectedItem());
+        c2.setSelectedItem(temp);
+        updateRate();
+        submitAmount();
     }
 
     //   Rounding to 2 decimal places
@@ -148,13 +152,6 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, K
     }
 
 
-    //    Buttons behaviour
-
-    public void submitAmount() {
-        if (!amount.getText().isEmpty()) updateAmount(amount.getText());
-        else lCalculated.setText("Enter an amount to convert ");
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnSubmit) {
@@ -179,8 +176,7 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, K
         } catch (IOException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
-
-        if (!amount.getText().isEmpty()) updateAmount(amount.getText());
+        submitAmount();
     }
 
     //    Changing currencies using dropdown lists
@@ -189,7 +185,3 @@ class CurrencyRatesGUI extends JFrame implements ItemListener, ActionListener, K
         updateRate();
     }
 }
-
-
-
-
